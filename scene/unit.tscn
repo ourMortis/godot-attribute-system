@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dm6sc52f3cod6"]
+
+[ext_resource type="Texture2D" uid="uid://d0s0mhupv3auj" path="res://icon.svg" id="1_btf8p"]
+[ext_resource type="Script" uid="uid://8aqqctjmsmvv" path="res://scene/unit.gd" id="1_of1k5"]
+[ext_resource type="Script" uid="uid://mp1e4beht31e" path="res://attribute_system/attribute_system.gd" id="2_ctwoc"]
+[ext_resource type="Script" uid="uid://cto4fcp6hwhqn" path="res://attribute_system/attribute.gd" id="3_1sk4h"]
+[ext_resource type="Resource" uid="uid://trxhqsyg4kpt" path="res://res/max_health.tres" id="4_baxm0"]
+[ext_resource type="Resource" uid="uid://d3j4luwmyeg7e" path="res://res/health.tres" id="5_of1k5"]
+[ext_resource type="Resource" uid="uid://c7gdbmn2rth1y" path="res://res/attack.tres" id="6_baxm0"]
+
+[node name="Unit" type="Node2D" unique_id=2118765120]
+script = ExtResource("1_of1k5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2128031311]
+texture = ExtResource("1_btf8p")
+
+[node name="AttributeSystem" type="Node" parent="." unique_id=1448187137]
+script = ExtResource("2_ctwoc")
+attributes = Dictionary[String, ExtResource("3_1sk4h")]({
+"attack": ExtResource("6_baxm0"),
+"health": ExtResource("5_of1k5"),
+"max_health": ExtResource("4_baxm0")
+})
+metadata/_custom_type_script = "uid://mp1e4beht31e"

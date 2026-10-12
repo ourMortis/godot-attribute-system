@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attribute" format=3 uid="uid://d3j4luwmyeg7e"]
+
+[ext_resource type="Script" uid="uid://cto4fcp6hwhqn" path="res://attribute_system/attribute.gd" id="1_y8btj"]
+
+[resource]
+script = ExtResource("1_y8btj")
+attribute_name = "health"
+base_value = 100.0
+cur_value = 100.0
+metadata/_custom_type_script = "uid://cto4fcp6hwhqn"
