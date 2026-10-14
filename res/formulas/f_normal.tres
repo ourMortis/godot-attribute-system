@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="AttributeFormulaNormal" format=3 uid="uid://coniuuje85sci"]
+
+[ext_resource type="Script" uid="uid://s45swwptn6vn" path="res://attribute_system/attribute_formula/attribute_formula_normal.gd" id="1_gj057"]
+
+[resource]
+script = ExtResource("1_gj057")
+metadata/_custom_type_script = "uid://s45swwptn6vn"

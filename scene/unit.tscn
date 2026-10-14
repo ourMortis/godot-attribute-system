@@ -3,10 +3,44 @@
 [ext_resource type="Texture2D" uid="uid://d0s0mhupv3auj" path="res://icon.svg" id="1_btf8p"]
 [ext_resource type="Script" uid="uid://8aqqctjmsmvv" path="res://scene/unit.gd" id="1_of1k5"]
 [ext_resource type="Script" uid="uid://mp1e4beht31e" path="res://attribute_system/attribute_system.gd" id="2_ctwoc"]
-[ext_resource type="Script" uid="uid://cto4fcp6hwhqn" path="res://attribute_system/attribute.gd" id="3_1sk4h"]
-[ext_resource type="Resource" uid="uid://trxhqsyg4kpt" path="res://res/max_health.tres" id="4_baxm0"]
-[ext_resource type="Resource" uid="uid://d3j4luwmyeg7e" path="res://res/health.tres" id="5_of1k5"]
-[ext_resource type="Resource" uid="uid://c7gdbmn2rth1y" path="res://res/attack.tres" id="6_baxm0"]
+[ext_resource type="Script" uid="uid://cto4fcp6hwhqn" path="res://attribute_system/attribute/attribute.gd" id="3_1sk4h"]
+[ext_resource type="Resource" uid="uid://imj8268h0qwr" path="res://res/formulas/f_instant.tres" id="7_2pmqo"]
+[ext_resource type="Script" uid="uid://bu2m8ar780fv4" path="res://attribute_system/attribute_formula/attribute_formula_multiplication_area.gd" id="7_3o5pf"]
+[ext_resource type="Script" uid="uid://c3ak3unysnpjc" path="res://attribute_system/attribute/buffable_attribute.gd" id="8_2pmqo"]
+[ext_resource type="Script" uid="uid://cf724hoxsdeyh" path="res://attribute_system/attribute/instant_attribute.gd" id="8_8tbml"]
+
+[sub_resource type="Resource" id="Resource_e4kfa"]
+script = ExtResource("7_3o5pf")
+zones = [null, null, null]
+metadata/_custom_type_script = "uid://bu2m8ar780fv4"
+
+[sub_resource type="Resource" id="Resource_mdn5c"]
+script = ExtResource("8_2pmqo")
+base_value = 2.0
+attribute_name = "attack"
+formula = SubResource("Resource_e4kfa")
+cur_value = 2.0
+metadata/_custom_type_script = "uid://c3ak3unysnpjc"
+
+[sub_resource type="Resource" id="Resource_2vptc"]
+script = ExtResource("8_8tbml")
+attribute_name = "health"
+formula = ExtResource("7_2pmqo")
+cur_value = 10.0
+metadata/_custom_type_script = "uid://cf724hoxsdeyh"
+
+[sub_resource type="Resource" id="Resource_uk5o2"]
+script = ExtResource("7_3o5pf")
+zones = [null, null, null]
+metadata/_custom_type_script = "uid://bu2m8ar780fv4"
+
+[sub_resource type="Resource" id="Resource_8tbml"]
+script = ExtResource("8_2pmqo")
+base_value = 100.0
+attribute_name = "max_health"
+formula = SubResource("Resource_uk5o2")
+cur_value = 100.0
+metadata/_custom_type_script = "uid://c3ak3unysnpjc"
 
 [node name="Unit" type="Node2D" unique_id=2118765120]
 script = ExtResource("1_of1k5")
@@ -17,8 +51,8 @@ texture = ExtResource("1_btf8p")
 [node name="AttributeSystem" type="Node" parent="." unique_id=1448187137]
 script = ExtResource("2_ctwoc")
 attributes = Dictionary[String, ExtResource("3_1sk4h")]({
-"attack": ExtResource("6_baxm0"),
-"health": ExtResource("5_of1k5"),
-"max_health": ExtResource("4_baxm0")
+"attack": SubResource("Resource_mdn5c"),
+"health": SubResource("Resource_2vptc"),
+"max_health": SubResource("Resource_8tbml")
 })
 metadata/_custom_type_script = "uid://mp1e4beht31e"

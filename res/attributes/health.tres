@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InstantAttribute" format=3 uid="uid://by1vt4shuj8rb"]
+
+[ext_resource type="Script" uid="uid://cf724hoxsdeyh" path="res://attribute_system/attribute/instant_attribute.gd" id="1_mw64x"]
+[ext_resource type="Resource" uid="uid://imj8268h0qwr" path="res://res/formulas/f_instant.tres" id="1_xfctx"]
+
+[resource]
+script = ExtResource("1_mw64x")
+attribute_name = "health"
+formula = ExtResource("1_xfctx")
+cur_value = 10.0
+metadata/_custom_type_script = "uid://cf724hoxsdeyh"

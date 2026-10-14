@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuffableAttribute" format=3 uid="uid://bulsxusojb0en"]
+
+[ext_resource type="Script" uid="uid://bu2m8ar780fv4" path="res://attribute_system/attribute_formula/attribute_formula_multiplication_area.gd" id="1_78m38"]
+[ext_resource type="Script" uid="uid://c3ak3unysnpjc" path="res://attribute_system/attribute/buffable_attribute.gd" id="2_uk5o2"]
+
+[sub_resource type="Resource" id="Resource_uk5o2"]
+script = ExtResource("1_78m38")
+zones = [null, null, null]
+metadata/_custom_type_script = "uid://bu2m8ar780fv4"
+
+[resource]
+script = ExtResource("2_uk5o2")
+base_value = 100.0
+attribute_name = "max_health"
+formula = SubResource("Resource_uk5o2")
+cur_value = 100.0
+metadata/_custom_type_script = "uid://c3ak3unysnpjc"
