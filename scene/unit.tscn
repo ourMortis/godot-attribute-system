@@ -3,44 +3,77 @@
 [ext_resource type="Texture2D" uid="uid://d0s0mhupv3auj" path="res://icon.svg" id="1_btf8p"]
 [ext_resource type="Script" uid="uid://8aqqctjmsmvv" path="res://scene/unit.gd" id="1_of1k5"]
 [ext_resource type="Script" uid="uid://mp1e4beht31e" path="res://attribute_system/attribute_system.gd" id="2_ctwoc"]
-[ext_resource type="Script" uid="uid://cto4fcp6hwhqn" path="res://attribute_system/attribute/attribute.gd" id="3_1sk4h"]
-[ext_resource type="Resource" uid="uid://imj8268h0qwr" path="res://res/formulas/f_instant.tres" id="7_2pmqo"]
-[ext_resource type="Script" uid="uid://bu2m8ar780fv4" path="res://attribute_system/attribute_formula/attribute_formula_multiplication_area.gd" id="7_3o5pf"]
-[ext_resource type="Script" uid="uid://c3ak3unysnpjc" path="res://attribute_system/attribute/buffable_attribute.gd" id="8_2pmqo"]
-[ext_resource type="Script" uid="uid://cf724hoxsdeyh" path="res://attribute_system/attribute/instant_attribute.gd" id="8_8tbml"]
+[ext_resource type="Script" uid="uid://7i7d2kllt8v2" path="res://attribute_system/definition/bucket_spec.gd" id="3_bucket"]
+[ext_resource type="Script" uid="uid://cn6gp5hbl3att" path="res://attribute_system/definition/attribute_definition.gd" id="4_definition"]
+[ext_resource type="Script" uid="uid://f20hrmqi51il" path="res://attribute_system/definition/attribute_dependency.gd" id="5_dependency"]
+[ext_resource type="Resource" uid="uid://coniuuje85sci" path="res://res/formulas/f_normal.tres" id="6_formula"]
+[ext_resource type="Script" uid="uid://df3bs36371tic" path="res://attribute_system/definition/attribute_set.gd" id="7_attribute_set"]
 
-[sub_resource type="Resource" id="Resource_e4kfa"]
-script = ExtResource("7_3o5pf")
-zones = [null, null, null]
-metadata/_custom_type_script = "uid://bu2m8ar780fv4"
+[sub_resource type="Resource" id="Bucket_flat"]
+script = ExtResource("3_bucket")
+bucket_name = &"flat"
+metadata/_custom_type_script = "uid://7i7d2kllt8v2"
 
-[sub_resource type="Resource" id="Resource_mdn5c"]
-script = ExtResource("8_2pmqo")
-base_value = 2.0
-attribute_name = "attack"
-formula = SubResource("Resource_e4kfa")
-cur_value = 2.0
-metadata/_custom_type_script = "uid://c3ak3unysnpjc"
+[sub_resource type="Resource" id="Definition_strength"]
+script = ExtResource("4_definition")
+id = &"strength"
+display_name = "力量"
+default_base = 10.0
+buckets = Array[ExtResource("3_bucket")]([SubResource("Bucket_flat")])
+formula = ExtResource("6_formula")
+metadata/_custom_type_script = "uid://cn6gp5hbl3att"
 
-[sub_resource type="Resource" id="Resource_2vptc"]
-script = ExtResource("8_8tbml")
-attribute_name = "health"
-formula = ExtResource("7_2pmqo")
-cur_value = 10.0
-metadata/_custom_type_script = "uid://cf724hoxsdeyh"
+[sub_resource type="Resource" id="Bucket_more"]
+script = ExtResource("3_bucket")
+bucket_name = &"more"
+combine = 1
+metadata/_custom_type_script = "uid://7i7d2kllt8v2"
 
-[sub_resource type="Resource" id="Resource_uk5o2"]
-script = ExtResource("7_3o5pf")
-zones = [null, null, null]
-metadata/_custom_type_script = "uid://bu2m8ar780fv4"
+[sub_resource type="Resource" id="Dependency_strength"]
+script = ExtResource("5_dependency")
+source_id = &"strength"
+coefficient = 2.0
+metadata/_custom_type_script = "uid://f20hrmqi51il"
 
-[sub_resource type="Resource" id="Resource_8tbml"]
-script = ExtResource("8_2pmqo")
-base_value = 100.0
-attribute_name = "max_health"
-formula = SubResource("Resource_uk5o2")
-cur_value = 100.0
-metadata/_custom_type_script = "uid://c3ak3unysnpjc"
+[sub_resource type="Resource" id="Definition_attack"]
+script = ExtResource("4_definition")
+id = &"attack"
+display_name = "攻击力"
+default_base = 2.0
+buckets = Array[ExtResource("3_bucket")]([SubResource("Bucket_flat"), SubResource("Bucket_more")])
+formula = ExtResource("6_formula")
+dependencies = Array[ExtResource("5_dependency")]([SubResource("Dependency_strength")])
+persist = false
+metadata/_custom_type_script = "uid://cn6gp5hbl3att"
+
+[sub_resource type="Resource" id="Bucket_increased"]
+script = ExtResource("3_bucket")
+bucket_name = &"increased"
+combine = 2
+metadata/_custom_type_script = "uid://7i7d2kllt8v2"
+
+[sub_resource type="Resource" id="Definition_max_health"]
+script = ExtResource("4_definition")
+id = &"max_health"
+display_name = "最大生命值"
+default_base = 100.0
+buckets = Array[ExtResource("3_bucket")]([SubResource("Bucket_flat"), SubResource("Bucket_increased")])
+formula = ExtResource("6_formula")
+metadata/_custom_type_script = "uid://cn6gp5hbl3att"
+
+[sub_resource type="Resource" id="Definition_health"]
+script = ExtResource("4_definition")
+id = &"health"
+display_name = "当前生命值"
+default_base = 100.0
+buckets = Array[ExtResource("3_bucket")]([SubResource("Bucket_flat")])
+formula = ExtResource("6_formula")
+metadata/_custom_type_script = "uid://cn6gp5hbl3att"
+
+[sub_resource type="Resource" id="AttributeSet_unit"]
+script = ExtResource("7_attribute_set")
+definitions = Array[ExtResource("4_definition")]([SubResource("Definition_strength"), SubResource("Definition_attack"), SubResource("Definition_max_health"), SubResource("Definition_health")])
+metadata/_custom_type_script = "uid://df3bs36371tic"
 
 [node name="Unit" type="Node2D" unique_id=2118765120]
 script = ExtResource("1_of1k5")
@@ -50,9 +83,7 @@ texture = ExtResource("1_btf8p")
 
 [node name="AttributeSystem" type="Node" parent="." unique_id=1448187137]
 script = ExtResource("2_ctwoc")
-attributes = Dictionary[String, ExtResource("3_1sk4h")]({
-"attack": SubResource("Resource_mdn5c"),
-"health": SubResource("Resource_2vptc"),
-"max_health": SubResource("Resource_8tbml")
-})
+attribute_set = SubResource("AttributeSet_unit")
 metadata/_custom_type_script = "uid://mp1e4beht31e"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1898969889]
